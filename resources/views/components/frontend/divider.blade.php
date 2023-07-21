@@ -1,0 +1,1 @@
+<div class="py-6 flex"><span class="border-t-2 border-gray-100 h-1 w-full"></span></div>
