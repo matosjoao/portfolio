@@ -32455,7 +32455,7 @@ body {
 
 .scrollToTop {
   position:fixed;
-  bottom:50px;
+  bottom:100px;
   right:50px;
 }
 

@@ -106,6 +106,17 @@
             });
         });
     }
+
+    function onSubmitLogin(e) {
+        e.preventDefault();
+        console.log(1);
+        grecaptcha.ready(function() {
+            grecaptcha.execute("{{ config('services.recaptcha.key') }}", {action: 'submit'}).then(function(token) {
+                document.getElementById("g-recaptcha-response").value = token;
+                document.getElementById("login-form").submit();
+            });
+        });
+    }
 </script>
 
 </html>

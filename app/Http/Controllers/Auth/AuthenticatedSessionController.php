@@ -7,6 +7,8 @@ use App\Http\Requests\Auth\LoginRequest;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
+use Closure;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -28,6 +30,24 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request)
     {
+        request()->validate([
+            'g-recaptcha-response' => ['required', function (string $attribute, mixed $value, Closure $fail) {
+                $response = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
+                    'secret' =>  config('services.recaptcha.secret'),
+                    'response' => $value,
+                    'remoteip' => request()->ip()
+                ]);
+
+                if(!$response->json('success') || $response->json('score') < 0.5)
+                {
+                    $fail("O recaptcha é inválido.");
+                }
+            }]
+        ],[
+            
+            'g-recaptcha-response.required' => 'Campo recaptcha obrigatório!',
+        ]);
+
         $request->authenticate();
 
         $request->session()->regenerate();

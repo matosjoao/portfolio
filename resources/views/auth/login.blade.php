@@ -12,7 +12,7 @@
         <!-- Validation Errors -->
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
-        <form method="POST" action="{{ route('login') }}">
+        <form method="POST" id="login-form" action="{{ route('login') }}">
             @csrf
 
             <!-- Email Address -->
@@ -40,6 +40,8 @@
                 </label>
             </div>
 
+            <input id="g-recaptcha-response" name="g-recaptcha-response" type="hidden">
+
             <div class="flex items-center justify-end mt-4">
                 @if (Route::has('password.request'))
                     <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">
@@ -47,7 +49,7 @@
                     </a>
                 @endif
 
-                <x-button class="ml-3">
+                <x-button class="ml-3" type="button" onclick="onSubmitLogin(event)">
                     {{ __('Log in') }}
                 </x-button>
             </div>

@@ -30,8 +30,21 @@
                     </a>
                 </div>
             </div>
-            <div class="flex flex-1 justify-start items-end">
-               <!--  <img src="storage/person.png" alt="user image" /> -->
+            <div class="flex flex-1">
+                <div class="flex flex-1 justify-start items-end">
+                    <img src="storage/person.png" alt="user image" />
+                </div>
+                <div class="flex flex-col items-center justify-center">
+                    <ul class="-mt-24">
+                        @foreach ($contacts as $contact)
+                            <li class="mr-6 cursor-pointer border-2 rounded-full border-white p-3 mb-4 text-center">
+                                <a href="{{$contact->description}}" target="_blank" class=" text-white ">
+                                    <i class="{{$contact->icon_name}}" aria-hidden="true"></i> 
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
             </div>
 
             <!-- 
